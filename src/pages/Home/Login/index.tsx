@@ -1,25 +1,24 @@
-import { user } from "@/api";
-import { message } from "antd";
-import { FC, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { message } from "antd";
+import { user } from "@/api";
+import { useRef } from "react";
 
-const Forget: FC = () => {
+const Login = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);
-  const newPasswordRef = useRef<HTMLInputElement | null>(null);
-  const codeRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
-  const retrieve = () => {
+  const login = () => {
     user
-      .retrieve({
+      .login({
         mail: emailRef.current?.value || "",
-        code: codeRef.current?.value || "",
-        newPwd: newPasswordRef.current?.value || "",
+        pwd: passwordRef.current?.value || "",
       })
       .then(() => {
-        message.success("修改成功");
-        navigate("/");
+        message.success("登陆成功");
+        navigate("/details");
       });
   };
+
   return (
     <div>
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -62,53 +61,49 @@ const Forget: FC = () => {
                 />
               </div>
               <div>
-                <label htmlFor="code" className="sr-only">
-                  code
+                <label htmlFor="password" className="sr-only">
+                  Password
                 </label>
                 <input
-                  ref={codeRef}
-                  id="code"
-                  name="code"
-                  type="code"
-                  autoComplete="current-password"
-                  required
-                  className="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="code"
-                />
-              </div>
-              <div>
-                <label htmlFor="NewPassword" className="sr-only">
-                  NewPassword
-                </label>
-                <input
-                  ref={newPasswordRef}
-                  id="NewPassword"
-                  name="NewPassword"
-                  type="NewPassword"
+                  ref={passwordRef}
+                  id="password"
+                  name="password"
+                  type="password"
                   autoComplete="current-password"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="NewPassword"
+                  placeholder="Password"
                 />
               </div>
             </div>
+
             <div className="flex items-center justify-between">
               <div className="text-sm">
                 <Link
-                  to="/"
+                  to="/register"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  已有账号?立即登录
+                  注册
                 </Link>
               </div>
+
+              <div className="text-sm">
+                <a
+                  href="/forget"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  忘记密码
+                </a>
+              </div>
             </div>
+
             <div>
               <button
-                onClick={retrieve}
+                onClick={login}
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                Change Password
+                Sign in
               </button>
             </div>
           </section>
@@ -118,4 +113,4 @@ const Forget: FC = () => {
   );
 };
 
-export default Forget;
+export default Login;

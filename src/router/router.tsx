@@ -1,7 +1,9 @@
 import Details from "@/pages/Details";
-import Edit from "@/pages/Edit";
-import Layout from "@/Layout";
+import Forget from "@/pages/Home/Forget";
 import Home from "@/pages/Home";
+import Layout from "@/Layout";
+import Login from "@/pages/Home/Login";
+import Register from "@/pages/Home/Register";
 import SignUp from "@/pages/SignUp";
 import { RouteObject, useRoutes } from "react-router-dom";
 import { Suspense } from "react";
@@ -10,10 +12,20 @@ const routes: RouteObject[] = [
   {
     path: "/",
     element: <Home />,
-  },
-  {
-    path: "/edit",
-    element: <Edit />,
+    children: [
+      {
+        index: true,
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/forget",
+        element: <Forget />,
+      },
+    ],
   },
   {
     path: "/signup",
