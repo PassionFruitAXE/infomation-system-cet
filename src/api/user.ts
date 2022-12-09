@@ -1,7 +1,8 @@
+import { TBaseResponse } from "@/types/axios";
 import request from "@/utils/request";
 
 export function login(data: { pwd: string; mail: string }) {
-  return request.post("/user/login", data);
+  return request.post<TBaseResponse<{ token: string }>>("/user/login", data);
 }
 
 export function register(data: {

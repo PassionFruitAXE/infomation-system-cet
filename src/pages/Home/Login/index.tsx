@@ -2,19 +2,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { user } from "@/api";
 import { useRef } from "react";
+import { useUserInfo } from "@/hooks/user";
 
 const Login = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
+  const { dispatch } = useUserInfo();
   const login = () => {
     user
       .login({
         mail: emailRef.current?.value || "",
         pwd: passwordRef.current?.value || "",
       })
-      .then(() => {
+      .then(value => {
         message.success("登陆成功");
+        dispatch(value.data.data);
         navigate("/details");
       });
   };
