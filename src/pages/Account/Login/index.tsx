@@ -18,13 +18,13 @@ const Login = () => {
       .then(value => {
         message.success("登陆成功");
         dispatch(value.data.data);
-        navigate("/details");
+        navigate("/home");
       });
   };
 
   return (
     <div>
-      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="w-full max-w-md space-y-8">
           <div>
             <img

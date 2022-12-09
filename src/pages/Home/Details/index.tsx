@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 const Details: FC = () => {
-  return <div>Details</div>;
+  return <div className="bg-white">Details</div>;
 };
 
 export default Details;
