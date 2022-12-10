@@ -1,8 +1,11 @@
 import { createContext, FC, ReactElement, useContext, useState } from "react";
+import { getItem, removeItem } from "@/utils/storage";
+import { user } from "@/api";
 
 export type TUserContext = {
   userInfo: {
-    token: string;
+    name: string;
+    email: string;
   };
   dispatch: (newState: any) => void;
   loginOut: () => void;
@@ -10,7 +13,8 @@ export type TUserContext = {
 
 const defaultValue = {
   userInfo: {
-    token: "",
+    name: "",
+    email: "",
   },
   dispatch: () => void 0,
   loginOut: () => void 0,
@@ -29,7 +33,20 @@ export const UserProvider: FC<{ children: ReactElement }> = ({ children }) => {
 
   const loginOut = () => {
     setUserInfo(defaultValue.userInfo);
+    removeItem("token");
   };
+
+  if (
+    (userInfo.name === "" || userInfo.email === "") &&
+    getItem("token") != ""
+  ) {
+    user.getUserInfo().then(response => {
+      dispatch({
+        name: response.data.data.examineeName,
+        email: response.data.data.mail,
+      });
+    });
+  }
   return (
     <UserContext.Provider
       value={{

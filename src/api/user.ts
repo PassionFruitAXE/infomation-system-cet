@@ -20,3 +20,16 @@ export function register(data: {
 export function retrieve(data: { newPwd: string; code: string; mail: string }) {
   return request.post("/pri/user/retrieve", data);
 }
+
+export function getUserInfo() {
+  return request.get<
+    TBaseResponse<{
+      examineeIdNumber: number;
+      examineeStudentId: number;
+      headImg: string;
+      mail: string;
+      examineeName: string;
+      gender: number;
+    }>
+  >("/pri/user/findInfoByMail");
+}

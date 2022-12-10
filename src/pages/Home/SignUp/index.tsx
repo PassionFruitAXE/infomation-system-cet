@@ -2,6 +2,8 @@ import { Cascader, Divider } from "antd";
 import { FC } from "react";
 import { location } from "@/api";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUserInfo } from "@/hooks/user";
 
 enum LocationType {
   PROVINCE = 0,
@@ -20,6 +22,10 @@ interface Option {
 
 const SignUp: FC = () => {
   const [province, setProvince] = useState<Option[]>([]);
+  const {
+    userInfo: { name, email },
+  } = useUserInfo();
+  const navigator = useNavigate();
   useEffect(() => {
     location.getProvince().then(response => {
       setProvince(
@@ -84,6 +90,7 @@ const SignUp: FC = () => {
                       Exam name
                     </label>
                     <input
+                      value={name}
                       type="text"
                       name="first-name"
                       id="first-name"
@@ -99,6 +106,7 @@ const SignUp: FC = () => {
                       Email address
                     </label>
                     <input
+                      value={email}
                       type="text"
                       name="email-address"
                       id="email-address"
@@ -124,6 +132,15 @@ const SignUp: FC = () => {
                 </div>
               </div>
               <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                <button
+                  onClick={() => {
+                    navigator(-1);
+                  }}
+                  type="submit"
+                  className="inline-flex justify-center mr-4 rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Back
+                </button>
                 <button
                   type="submit"
                   className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"

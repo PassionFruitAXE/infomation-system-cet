@@ -1,7 +1,11 @@
+import { useUserInfo } from "@/hooks/user";
 import { Divider } from "antd";
 import { FC } from "react";
 
 const Edit: FC = () => {
+  const {
+    userInfo: { name, email },
+  } = useUserInfo();
   return (
     <div>
       <div className="mt-10 sm:mt-0">
@@ -20,6 +24,8 @@ const Edit: FC = () => {
                       Exam name
                     </label>
                     <input
+                      value={name}
+                      readOnly={true}
                       type="text"
                       name="first-name"
                       id="first-name"
@@ -35,6 +41,8 @@ const Edit: FC = () => {
                       Email address
                     </label>
                     <input
+                      value={email}
+                      readOnly={true}
                       type="text"
                       name="email-address"
                       id="email-address"

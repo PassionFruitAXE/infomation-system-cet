@@ -1,6 +1,7 @@
 import Account from "@/pages/Account";
 import Details from "@/pages/Home/Details";
 import Edit from "@/pages/Home/Edit";
+import Exam from "@/pages/Home/Exam";
 import Forget from "@/pages/Account/Forget";
 import Home from "@/pages/Home";
 import Login from "@/pages/Account/Login";
@@ -34,7 +35,7 @@ const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <Details />,
+        element: <Exam />,
       },
       {
         path: "edit",
@@ -43,6 +44,10 @@ const routes: RouteObject[] = [
       {
         path: "signup",
         element: <SignUp />,
+      },
+      {
+        path: "details",
+        element: <Details />,
       },
     ],
   },
