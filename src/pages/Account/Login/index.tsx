@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { message } from "antd";
+import { setItem } from "@/utils/storage";
 import { user } from "@/api";
 import { useRef } from "react";
 import { useUserInfo } from "@/hooks/user";
@@ -17,7 +18,14 @@ const Login = () => {
       })
       .then(value => {
         message.success("登陆成功");
-        dispatch(value.data.data);
+        // dispatch(value.data.data);
+        user.getUserInfo().then(response => {
+          dispatch({
+            name: response.data.data.examineeName,
+            email: response.data.data.mail,
+          });
+        });
+        setItem("token", value.data.data.token);
         navigate("/home");
       });
   };
@@ -32,18 +40,9 @@ const Login = () => {
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
               alt="Your Company"
             />
-            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Sign in to your account
+            <h2 className="mt-6 w-96 text-center text-3xl font-bold tracking-tight text-gray-900">
+              登录你的账号
             </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
-              Or{" "}
-              <a
-                href="#"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                start your 14-day free trial
-              </a>
-            </p>
           </div>
           <section className="mt-8 space-y-6">
             <input type="hidden" name="remember" defaultValue="true" />
