@@ -101,7 +101,11 @@ const Exam: FC = () => {
                   报名
                 </Link>
               ) : (
-                <Link to="/home/details" key={index}>
+                <Link
+                  to={`/home/details`}
+                  state={{ title: item.title, examId: item.id }}
+                  key={index}
+                >
                   查看报名信息
                 </Link>
               ),

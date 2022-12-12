@@ -33,3 +33,20 @@ export function getUserInfo() {
     }>
   >("/pri/user/findInfoByMail");
 }
+
+export type RegistrationInfo = {
+  eaxmId: number;
+  eaxmCardNumber: number;
+  examineeIdNumber: string;
+  examineeName: string;
+  seatNumber: number;
+  examRoomNumber: 68;
+  addressName: string;
+  mail: string;
+};
+
+export function getRegistrationInfo(id: string) {
+  return request.get<TBaseResponse<RegistrationInfo>>(
+    `/pri/user/viewRegistrationInfo/${id}`
+  );
+}
