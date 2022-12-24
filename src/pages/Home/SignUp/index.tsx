@@ -1,8 +1,8 @@
 import { Cascader, Divider } from "antd";
 import { FC } from "react";
-import { location } from "@/api";
+import { location, order } from "@/api";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useUserInfo } from "@/hooks/user";
 
 enum LocationType {
@@ -21,7 +21,9 @@ interface Option {
 }
 
 const SignUp: FC = () => {
+  const { examId } = useLocation().state;
   const [province, setProvince] = useState<Option[]>([]);
+  const [selectedOption, setSelectedOption] = useState<string[]>([]);
   const {
     userInfo: { name, email },
   } = useUserInfo();
@@ -41,6 +43,7 @@ const SignUp: FC = () => {
 
   const onChange = (value: string[], selectedOptions: Option[]) => {
     console.log(value, selectedOptions);
+    setSelectedOption(value);
   };
 
   const loadData = (selectedOptions: Option[]) => {
@@ -142,6 +145,18 @@ const SignUp: FC = () => {
                   Back
                 </button>
                 <button
+                  onClick={() => {
+                    const data = {
+                      examId,
+                      clientType: "PC",
+                      payType: "WECHAT_PAY",
+                      price: 0.01,
+                      province: selectedOption[0],
+                      city: selectedOption[1],
+                      school: selectedOption[2],
+                    };
+                    order.confirmOrder(data).then();
+                  }}
                   type="submit"
                   className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >

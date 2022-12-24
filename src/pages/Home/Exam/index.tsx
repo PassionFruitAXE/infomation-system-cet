@@ -97,7 +97,7 @@ const Exam: FC = () => {
           <List.Item
             actions={[
               item.state !== "PAY" ? (
-                <Link to="/home/signup" key={index}>
+                <Link to="/home/signup" state={{ examId: item.id }} key={index}>
                   报名
                 </Link>
               ) : (

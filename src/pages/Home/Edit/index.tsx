@@ -1,8 +1,12 @@
+import { user } from "@/api";
 import { useUserInfo } from "@/hooks/user";
-import { Divider } from "antd";
-import { FC } from "react";
+import { Divider, message } from "antd";
+import { FC, useRef } from "react";
 
 const Edit: FC = () => {
+  const oldPasswordRef = useRef<HTMLInputElement | null>(null);
+  const newPasswordRef = useRef<HTMLInputElement | null>(null);
+
   const {
     userInfo: { name, email },
   } = useUserInfo();
@@ -52,14 +56,21 @@ const Edit: FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+              {/* <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                 <button
+                  onClick={() => {
+                    const data = {
+                      examineeIdNumber: nameRef.current?.value ?? "",
+                      examineeName: nameRef.current?.value ?? "",
+                    };
+                    user.updateUserInfo();
+                  }}
                   type="submit"
                   className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Save
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -80,6 +91,7 @@ const Edit: FC = () => {
                       OldPassword
                     </label>
                     <input
+                      ref={oldPasswordRef}
                       type="text"
                       name="OldPassword"
                       id="OldPassword"
@@ -95,6 +107,7 @@ const Edit: FC = () => {
                       NewPassword
                     </label>
                     <input
+                      ref={newPasswordRef}
                       type="text"
                       name="NewPassword"
                       id="NewPassword"
@@ -106,6 +119,15 @@ const Edit: FC = () => {
               </div>
               <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                 <button
+                  onClick={() => {
+                    const data = {
+                      oldPassword: oldPasswordRef.current?.value ?? "",
+                      newPassword: newPasswordRef.current?.value ?? "",
+                    };
+                    user.alterPassword(data).then(() => {
+                      message.success("修改成功");
+                    });
+                  }}
                   type="submit"
                   className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >

@@ -40,7 +40,7 @@ export type RegistrationInfo = {
   examineeIdNumber: string;
   examineeName: string;
   seatNumber: number;
-  examRoomNumber: 68;
+  examRoomNumber: number;
   addressName: string;
   mail: string;
 };
@@ -49,4 +49,18 @@ export function getRegistrationInfo(id: string) {
   return request.get<TBaseResponse<RegistrationInfo>>(
     `/pri/user/viewRegistrationInfo/${id}`
   );
+}
+
+export function updateUserInfo(data: {
+  examineeIdNumber: number;
+  examineeName: string;
+}) {
+  return request.put("/pri/user/update", data);
+}
+
+export function alterPassword(data: {
+  oldPassword: string;
+  newPassword: string;
+}) {
+  return request.put("/pri/user/alter", data);
 }

@@ -1,7 +1,7 @@
 import { user } from "@/api";
 import { RegistrationInfo } from "@/api/user";
 import { FC, useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Details: FC = () => {
   const [registrationInfo, setRegistrationsInfo] = useState<RegistrationInfo>();
