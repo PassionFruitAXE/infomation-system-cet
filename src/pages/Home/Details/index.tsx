@@ -78,12 +78,13 @@ const Details: FC = () => {
               >
                 Back
               </button>
-              <button
+              <a
+                href="https://chandfy-cloud.oss-cn-chengdu.aliyuncs.com/2022/2022%E5%B9%B4%E4%B8%8B%E5%8D%8A%E5%B9%B4%E5%85%A8%E5%9B%BD%E5%A4%A7%E5%AD%A6%E8%8B%B1%E8%AF%AD%E5%85%AD%E7%BA%A7%E8%80%83%E8%AF%95.pdf"
                 type="submit"
                 className="inline-flex justify-center mr-4 rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 打印准考证
-              </button>
+              </a>
               <button
                 type="submit"
                 className="inline-flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
