@@ -6,6 +6,7 @@ export type TUserContext = {
   userInfo: {
     name: string;
     email: string;
+    examineeIdNumber: string;
   };
   dispatch: (newState: any) => void;
   loginOut: () => void;
@@ -15,6 +16,7 @@ const defaultValue = {
   userInfo: {
     name: "",
     email: "",
+    examineeIdNumber: "",
   },
   dispatch: () => void 0,
   loginOut: () => void 0,
@@ -44,6 +46,7 @@ export const UserProvider: FC<{ children: ReactElement }> = ({ children }) => {
       dispatch({
         name: response.data.data.examineeName,
         email: response.data.data.mail,
+        examineeIdNumber: response.data.data.examineeIdNumber,
       });
     });
   }

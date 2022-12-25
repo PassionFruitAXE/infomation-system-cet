@@ -1,4 +1,4 @@
-import { Cascader, Divider } from "antd";
+import { Cascader, Divider, Modal, QRCode } from "antd";
 import { FC } from "react";
 import { location, order } from "@/api";
 import { useEffect, useState } from "react";
@@ -22,6 +22,8 @@ interface Option {
 
 const SignUp: FC = () => {
   const { examId } = useLocation().state;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [codeURL, setCodeURL] = useState("");
   const [province, setProvince] = useState<Option[]>([]);
   const [selectedOption, setSelectedOption] = useState<string[]>([]);
   const {
@@ -40,6 +42,18 @@ const SignUp: FC = () => {
       );
     });
   }, []);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const onChange = (value: string[], selectedOptions: Option[]) => {
     console.log(value, selectedOptions);
@@ -155,7 +169,10 @@ const SignUp: FC = () => {
                       city: selectedOption[1],
                       school: selectedOption[2],
                     };
-                    order.confirmOrder(data).then();
+                    order.confirmOrder(data).then(response => {
+                      setCodeURL(response.data.data.code_url);
+                      showModal();
+                    });
                   }}
                   type="submit"
                   className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -167,6 +184,14 @@ const SignUp: FC = () => {
           </div>
         </div>
       </div>
+      <Modal
+        title="支付费用"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <QRCode value={codeURL} />
+      </Modal>
     </div>
   );
 };

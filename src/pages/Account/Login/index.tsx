@@ -25,7 +25,7 @@ const Login = () => {
             email: response.data.data.mail,
           });
         });
-        setItem("token", value.data.data.token);
+        setItem("token", value.data.data);
         navigate("/home");
       });
   };

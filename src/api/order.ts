@@ -1,3 +1,4 @@
+import { TBaseResponse } from "./../types/axios";
 import request from "@/utils/request";
 
 export function confirmOrder(data: {
@@ -9,5 +10,8 @@ export function confirmOrder(data: {
   city: string;
   school: string;
 }) {
-  return request.post("/pri/order/confirm", data);
+  return request.post<TBaseResponse<{ code_url: string }>>(
+    "/pri/order/confirm",
+    data
+  );
 }

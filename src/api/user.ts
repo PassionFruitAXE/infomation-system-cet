@@ -2,10 +2,7 @@ import { TBaseResponse } from "@/types/axios";
 import request from "@/utils/request";
 
 export function login(data: { pwd: string; mail: string }) {
-  return request.post<TBaseResponse<{ token: string }>>(
-    "/pri/user/login",
-    data
-  );
+  return request.post<TBaseResponse<string>>("/pri/user/login", data);
 }
 
 export function register(data: {
@@ -24,7 +21,7 @@ export function retrieve(data: { newPwd: string; code: string; mail: string }) {
 export function getUserInfo() {
   return request.get<
     TBaseResponse<{
-      examineeIdNumber: number;
+      examineeIdNumber: string;
       examineeStudentId: number;
       headImg: string;
       mail: string;
@@ -52,7 +49,7 @@ export function getRegistrationInfo(id: string) {
 }
 
 export function updateUserInfo(data: {
-  examineeIdNumber: number;
+  examineeIdNumber: string;
   examineeName: string;
 }) {
   return request.put("/pri/user/update", data);
